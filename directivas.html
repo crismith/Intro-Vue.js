@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+	<title>Directivas</title>
+
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Curso Vue</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExample01">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+			</div>
+		</nav>
+
+		<div id="app">
+
+			{{$data}}
+			
+			<form action="">
+				<h5>Has trabajado con Vue.js?</h5>
+
+				<div class="radio">
+					<label class="radio-inline" for="radio1">
+						<input type="radio" v-model="vue.exp" :value="true"> Si
+					</label>
+					<label class="radio-inline" for="radio2">
+						<input type="radio" v-model="vue.exp" :value="false"> No
+					</label>
+				</div>
+				
+				<div v-show="vue.exp">
+					
+					<div class="form-group">
+						<label for="year">Cuantos años de experiencia</label>
+						<input type="number" v-model="vue.year" class="form-control">
+					</div>
+
+					<div v-if="vue.year < 2" class="form-group">
+						<label for="year">Que te motivo a estudiar Vue?</label>
+						<textarea  v-model="vue.description" rows="4" class="form-control"></textarea>
+						<p v-if="vue.description <= 0">Ingrese su motivo por aprender Vue</p>
+					</div>
+
+					<div v-else class="form-group">
+						<label for="year">Cuentame tu experiencia con Vue.js</label>
+						<textarea  v-model="vue.description" rows="4" class="form-control"></textarea>
+						<p v-if="vue.description <= 0">Ingrese tu experiencia con Vue</p>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+
+	</div> 
+
+
+	<footer class="footer">
+		<p>&copy; Crismith.pe - 2018</p>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+	crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" 
+integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" 
+crossorigin="anonymous">
+</script>
+<script src="https://unpkg.com/vue"></script>
+
+
+<script>
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			vue : {
+				exp : null,
+				year : 0,
+				description: ' '
+			}
+		}
+	})
+</script>
+
+</body>
+</html>
