@@ -6,7 +6,7 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 
-	<title>Directivas</title>
+	<title>Estilo</title>
 
 </head>
 <body>
@@ -22,16 +22,15 @@
 					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-			</div>
-		</nav>
-		
-		<div class="container">
-			
-			<div id="app">
+				</div>
+			</nav>
 
-				<!--para motrar los datos que tenemos {{$data}} -->
-				
-				<form action="">
+			<div class="container">
+
+				<div id="app">
+
+					<!--para motrar los datos que tenemos {{$data}} -->
+
 					<h5>Has trabajado con Vue.js?</h5>
 
 					<div class="radio">
@@ -42,31 +41,42 @@
 							<input type="radio" v-model="vue.exp" :value="false"> No
 						</label>
 					</div>
-					
+
 					<div v-show="vue.exp">
-						
+
 						<div class="form-group">
 							<label for="year">Cuantos años de experiencia</label>
 							<input type="number" v-model="vue.year" class="form-control">
 						</div>
 
-						<div v-if="vue.year < 2" class="form-group">
-							<label for="year">Que te motivo a estudiar Vue?</label>
-							<textarea  v-model="vue.description" rows="4" class="form-control"></textarea>
+
+						<div v-if="vue.year < 2" class="form-group" :style="textStyles">
+							<label for="year is-invalid">Que te motivo a estudiar Vue?</label>
+							<textarea  v-model="vue.description" rows="4" :class="validation"></textarea>
 							<p v-if="vue.description != '' ">
 								{{ desErro }}
 							</p>
 						</div>
 
-						<div v-else class="form-group">
-							<label for="year">Cuentame tu experiencia con Vue.js</label>
+					<!-- 
+
+						<div v-if="vue.years < 2" class="form-group" :class="{ 'has-error': desErro }">
+							<label for="year">Que te motivo a estudiar Vue?</label>
 							<textarea  v-model="vue.description" rows="4" class="form-control"></textarea>
-							<p v-if="vue.description != '' ">
-								{{ desErro }}
-							</p>
 						</div>
+						
+						
+					-->
+					<div v-else class="form-group" :style="[textStyleError ,textStyleSuccess ]">
+						<label for="year">Cuentame tu experiencia con Vue.js</label>
+						<textarea  v-model="vue.description" rows="4" :class="validation"></textarea>
+						<p v-if="vue.description != '' ">
+							{{ desErro }}
+						</p>
 					</div>
-				</form>
+
+
+				</div>
 			</div>
 			<footer class="footer">
 				<p>&copy; Crismith.pe - 2018</p>
@@ -74,17 +84,13 @@
 		</div>
 
 
-
-
-
-
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
-	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+		crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
 	crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
-integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
-crossorigin="anonymous">
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" 
 integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" 
@@ -119,6 +125,21 @@ crossorigin="anonymous">
 				if (des.length > 20 ) {
 					return "el campo deve ser menor a 20 caracteres";
 				}
+			},
+			validation : function () {
+				return [
+					'form-control',
+					{'is-invalid' : this.desErro}
+				];
+			},
+			textStyles: function () {
+				if (this.desErro) {
+					return { color: '#a94442' };
+				}
+
+			},
+			textStyleSuccess : function () {
+				return { 'color': '#3cdc70','font-size' : '30px' };
 			}
 		}
 	})
