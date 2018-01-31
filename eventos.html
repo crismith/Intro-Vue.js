@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+	<title>Eventos y metodos</title>
+
+	<style>
+		body{
+			text-decoration: none;
+		}
+		.container footer {
+		    margin: 40px 0;
+		    padding-top: 20px;
+		    border-top: 1px solid #ccc;
+		    color: #999;
+		}
+		.completed .title {
+    		text-decoration: line-through;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Curso Vue</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExample01">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+			<li class="nav-item">
+		</div>
+	</nav>
+
+	<div class="container">
+		<div id="app">
+
+			<h3>Tareas</h3>
+				<ul>
+					<li v-for="tarea of tareas" @click="ChangeStyle(tarea)" :class="{completed: !tarea.modo}">
+						<span class="title">
+							{{tarea.title}} 
+						</span>
+					</li>
+				</ul>
+
+			<h3>Tareas Completadas</h3>
+				<ul>
+					<li v-for="tarea of tareaTrue">  {{tarea.title}} </li>
+				</ul>
+
+			<h3>Tareas Pendiente</h3>
+			<ul>
+				<li v-for="tarea in tareaFalse">
+					<span>
+						{{tarea.title}} 
+					</span>
+				</li>
+			</ul>
+			
+
+			<form @submit.prevent="createTarea">
+				<!--
+					<button class="btn btn-primary" @click="createTarea(true, $event)">
+    					Crear tarea 
+					</button>
+				-->
+				<input type="text" v-model="newTarea" class="form-control" @keyup.enter="createTarea">
+				<br>
+				<button class="btn btn-primary" @click="createTarea" type="submit">Crear Tarea pendiente</button>
+			</form>
+
+		</div>
+		<footer class="footer">
+			<center><p>&copy; Crismith.pe - 2018</p></center>
+		</footer>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/vue"></script>
+
+
+<script>
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			newTarea : '',
+			tareas : [
+
+				{
+					title : 'Lavar',
+					modo : true
+				},
+				{
+					title : 'Planchar',
+					modo : false
+				},
+				{
+					title : 'Cocinar',
+					modo : true
+				},
+				{
+					title : 'Limpiar',
+					modo : false
+				},
+				{
+					title: 'Comer',
+					modo: false
+				}
+			]
+		},
+		computed: {
+			tareaTrue: function () {
+				return this.tareas.filter( function(item) {
+					return item.modo;
+				})
+			},
+			tareaFalse(){
+				return this.tareas.filter(function (item) {
+					return !item.modo;
+				})
+			}
+		},
+		methods : {
+			//createTarea: function (pending, event) 
+			createTarea : function (){
+				if (this.newTarea == '') {
+					alert('ingresa un dato correcto')
+				}else{
+
+					this.tareas.push({
+						title: this.newTarea,
+						modo: true
+					});
+
+					this.newTarea = '';
+				}
+			},
+			ChangeStyle(tarea){
+				tarea.modo = !tarea.modo;
+			}
+
+		}
+	})
+</script>
+
+</body>
+</html>
