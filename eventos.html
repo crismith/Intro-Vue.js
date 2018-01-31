@@ -9,8 +9,8 @@
 	<title>Eventos y metodos</title>
 
 	<style>
-		body{
-			text-decoration: none;
+		.container{
+			margin: 10px;
 		}
 		.container footer {
 		    margin: 40px 0;
@@ -42,29 +42,34 @@
 	<div class="container">
 		<div id="app">
 
-			<h3>Tareas</h3>
-				<ul>
-					<li v-for="tarea of tareas" @click="ChangeStyle(tarea)" :class="{completed: !tarea.modo}">
-						<span class="title">
-							{{tarea.title}} 
-						</span>
-					</li>
-				</ul>
-
-			<h3>Tareas Completadas</h3>
-				<ul>
-					<li v-for="tarea of tareaTrue">  {{tarea.title}} </li>
-				</ul>
-
-			<h3>Tareas Pendiente</h3>
-			<ul>
-				<li v-for="tarea in tareaFalse">
-					<span>
-						{{tarea.title}} 
-					</span>
-				</li>
-			</ul>
-			
+			<div class="row">
+				<div class="col-sm-4">
+				<h3>Tareas</h3>
+					<ul>
+						<li v-for="tarea of tareas" @click="ChangeStyle(tarea)" :class="{completed: !tarea.modo}">
+							<span class="title">
+								{{tarea.title}} 
+							</span>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-4">
+					<h3>Tareas Completadas</h3>
+						<ul>
+							<li v-for="tarea of tareaTrue">  {{tarea.title}} </li>
+						</ul>
+				</div>
+				<div class="col-sm-4">
+					<h3>Tareas Pendiente</h3>
+					<ul>
+						<li v-for="tarea in tareaFalse">
+							<span>
+								{{tarea.title}} 
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
 
 			<form @submit.prevent="createTarea">
 				<!--
