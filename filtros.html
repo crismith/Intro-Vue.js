@@ -39,18 +39,33 @@
 
 	<div class="container">
 		<div id="app">
-			<div class="welcome">
-                {{ name | title('Mr') | upper }}
-				
+			<!--
+				<div class="welcome">
+	                {{ name | title('Mr') | upper }}
+					
 
-				<h1>Dinero</h1>
-                <p>{{ 1000.234 | money }}</p>
+					<h1>Dinero</h1>
+	                <p>{{ 1000.234 | money }}</p>
 
-                <h2>Historia</h2>
-                <p>
-                	{{ historia | texto }}
-                </p>
-            </div>
+	                <h2>Historia</h2>
+	                <p>
+	                	{{ historia | texto }}
+	                </p>
+	            </div>
+        	-->
+        	<h1>Usuarios</h1>
+		
+        	<button @click="showUsers" class="btn btn-primary" v-if="!lists.length">Listar</button>
+			<ul class="list-group" v-else>
+			    <li class="list-group-item">
+			        <input type="text" placeholder="Buscar" class="form-control" v-model="name">
+			    </li>
+			    <li v-for="item in searchUser" class="list-group-item">
+			        {{ item.name }}
+			    </li>
+			</ul>
+
+
 
 		</div>
 		<footer class="footer">
@@ -66,7 +81,11 @@
 	<script src="https://unpkg.com/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.min.js"></script>
+
 	<script>
+
+		/*
 
         var vm = new Vue({
             el: ".welcome",
@@ -90,6 +109,31 @@
                 }
             }
         });
+
+        **/
+
+        new Vue({
+	        el: '#app',
+	        data: {
+	            lists: [],
+	            name: ''
+	        },	
+	        methods: {
+	            showUsers: function () {
+	                var urlUsers = 'https://jsonplaceholder.typicode.com/users';
+	                axios.get(urlUsers).then(response => {
+	                   this.lists = response.data
+	                });
+		    	}
+	        },
+	        computed: {
+	        	searchUser: function () {
+                	return this.lists.filter((item) => item.name.includes(this.name));
+            	}
+	        }
+    	});
+
+
     </script>
 
 </body>
